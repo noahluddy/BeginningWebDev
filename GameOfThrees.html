@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+    <head>
+        
+        <title>Game of Threes</title>
+    
+        <style type="text/css">
+            
+            body {
+                background-color: bisque;
+                font-family: Helvetica, sans-serif;
+            }
+            
+            #container {
+                margin-top: 80px;  /* Note: I couldn't get the text box to align when I had margin: 0 auto */
+                width: 100%;
+                text-align: center;
+            }
+            
+            #info {
+                font-weight: 700;
+                color: darksalmon;
+                text-align: center;
+                font-size: 40px;
+            }
+            
+            #area {
+                font-size: 50px;
+                border: 3px darksalmon solid;
+                margin-top: 20px;
+            }
+            
+            /* Taken from: http://stackoverflow.com/questions/3397113/how-to-remove-border-outline-around-text-input-boxes-chrome */
+            #area:focus {
+                outline: none;
+                box-shadow: 0 0 40px darksalmon;
+            }
+            
+            #output {
+                text-align: center;
+                color: darksalmon;
+                font-weight: bold;
+                font-size: 25px;
+                margin-top: 50px;
+            }
+            
+        </style>
+    
+    </head>
+    
+    <body>
+        
+        <div id="container">
+        
+            <h1 id="info">Welcome to the Game of Threes. <br>Type in a large number then press enter. </h1>
+
+            <input id="area" type="number" onkeypress="handle(event)" autofocus>  <!-- Taken from: http://stackoverflow.com/questions/3383429/setting-focus-on-an-html-input-box-on-page-load -->
+
+            <p id="output"></p>
+
+            <script>
+                
+                // Taken from: http://stackoverflow.com/questions/13987300/how-to-trigger-enter-key-press-of-textbox
+                function handle(e) {
+                    if (e.keyCode === 13) {
+                        three();
+                    }
+                }
+
+                function three() {
+                    var num = parseInt(document.getElementById('area').value);
+                    var out = '';
+
+                    while (num != 1) {
+                        var factor = [0, -1, 1][num % 3];
+                        // I like this, but I didn't end up needing it :(  var plus = factor === 1 ? ' + ' : '';
+                        if (factor === 1) {
+                            out += num + ' + ' + factor + ' = ' + (num+factor) + '<br>';
+                        } else if (factor === -1) {
+                            out += num + ' - 1 = ' + (num+factor) + '<br>';
+                        }
+                        out += (num+factor) + ' / 3 = ' + ((num+factor)/3) + '<br>';
+                        num = (num+factor)/3;
+                    }
+                    document.getElementById("output").innerHTML = out;
+                }
+
+            </script>
+            
+        </div>
+
+    </body>
+</html>
